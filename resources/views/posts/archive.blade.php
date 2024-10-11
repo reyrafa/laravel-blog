@@ -8,16 +8,12 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-            @foreach($posts as $key => $post)
-            <div class="bg-white overflow-hidden p-10 shadow-sm sm:rounded-lg mb-5">
-
-
-                <div class="justify-between sm:flex">
-                div
-                </div>
-
-            </div>
-            @endforeach
+            @forelse ($posts as $key => $post)
+                <x-posts.card :post="$post"></x-posts.card>
+            @empty
+                <div>No Archive Yet.</div>
+            @endforelse
+            {{ $posts->links() }}
 
         </div>
     </div>

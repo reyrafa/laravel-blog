@@ -16,6 +16,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->group(function () {
             Route::view('/create', 'posts.create')->name('create');
             Route::get('/archive', [PostController::class, 'archive'])->name('archive');
+            Route::put('/restore/{post}', [PostController::class, 'restore'])->name('restore');
             // Route::post('/store',[PostController::class , 'store'])->name('store');
         });
     Route::resource('posts', PostController::class)->except(['create', 'index']);

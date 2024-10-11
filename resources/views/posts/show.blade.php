@@ -23,8 +23,10 @@
                     <div class="flex-shrink-0 hidden ml-3 sm:block">
 
                         <img class="object-cover w-16 h-16 rounded-full shadow-sm"
-                            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                            alt="" />
+                            src="{{ $post->user->avatar
+                                ? asset('storage/' . $post->user->avatar)
+                                : 'https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg' }}"
+                            alt="profile" />
 
 
                     </div>
@@ -44,7 +46,7 @@
 
 
                 </dl>
-                @if ($post->user->id == auth()->user()->id)
+                @if ($post->user->id == auth()->user()->id && !$post->trashed())
                     <div class="mt-4 flex">
                         <a class="bg-blue-500 text-white py-1 px-3 rounded me-4"
                             href="{{ route('posts.edit', $post->uuid) }}">Edit</a>

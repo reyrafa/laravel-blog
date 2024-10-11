@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DeleteRequest;
 use App\Http\Requests\EditRequest;
+use App\Http\Requests\Post\RestoreRequest;
 use App\Http\Requests\Post\StoreRequest;
 use App\Http\Requests\UpdateRequest;
 use App\Models\Post;
@@ -51,7 +52,7 @@ class PostController extends Controller
     public function show(Post $post)
     {
 
-        // $post = Post::where('uuid',$id)->first();
+        // $post = Post::withTrashed()->where('uuid', $id)->first();
 
         return view("posts.show", ['post' => $post]);
     }
@@ -91,7 +92,15 @@ class PostController extends Controller
 
     public function archive()
     {
-        $posts = Post::withTrashed()->get();
+        $posts = Post::onlyTrashed()->where('user_id', auth()->id())->simplePaginate(2);
         return view('posts.archive', ['posts' => $posts]);
+    }
+
+    public function restore(RestoreRequest $request, $uuid)
+    {
+        $post = Post::onlyTrashed()->where('uuid', $uuid)->first();
+
+        $post->restore();
+        return redirect()->route('dashboard');
     }
 }
