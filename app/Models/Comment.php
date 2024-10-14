@@ -32,4 +32,14 @@ class Comment extends Model
     {
         return $this->belongsTo(Post::class, 'post_id');
     }
+
+    /**
+     * get comment by id
+     * @param mixed $id
+     * @return TModel|\Illuminate\Database\Eloquent\Collection|null
+     */
+    public function getComment($id = null)
+    {
+        return $this->find($id);
+    }
 }

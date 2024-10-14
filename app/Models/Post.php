@@ -62,4 +62,12 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class, 'post_id');
     }
+
+    /**
+     * get a specific post by uuid
+     */
+    public function getPost($id = null)
+    {
+        return $this->find($id);
+    }
 }

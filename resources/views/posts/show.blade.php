@@ -63,10 +63,24 @@
                 <div class="mt-5">
                     <div class="font-bold">Comments</div>
                     <div class="mt-3">
-                        @foreach ($post->comments as $comments)
-                            <div class="mb-3">
-                                <div>{{ $comments->user->name }}</div>
-                                <div>{{ $comments->content }}</div>
+                        @foreach ($post->comments as $comment)
+                            <div class="flex items-center justify-between">
+                                <div class="mb-3">
+                                    <div>{{ $comment->user->name }}</div>
+                                    <div>{{ $comment->content }}</div>
+                                </div>
+                                @if ($comment->user_id === auth()->user()->id || $comment->post->user->id === auth()->user()->id)
+                                    <div>
+
+                                        <form action="{{ route('comments.destroy', $comment->id) }}" method="post">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button type="submit"
+                                                class="bg-red-600 rounded py-2 px-3 text-white">Delete</button>
+                                        </form>
+                                    </div>
+                                @endif
+
                             </div>
                         @endforeach
 

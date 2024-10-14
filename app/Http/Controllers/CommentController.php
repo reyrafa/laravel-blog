@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Comment\DestroyCommentRequest;
 use App\Http\Requests\Comment\StoreCommentRequest;
 use App\Models\Comment;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -47,8 +49,13 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(DestroyCommentRequest $request, string $id)
     {
-        //
+        $comment = Comment::find($id);
+        $post = Post::find($comment->post_id);
+
+        $comment->delete();
+
+        return redirect()->route('posts.show', $post->uuid);
     }
 }
