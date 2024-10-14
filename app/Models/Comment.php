@@ -10,6 +10,8 @@ class Comment extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
+        'post_id',
         'content',
     ];
 
@@ -28,6 +30,6 @@ class Comment extends Model
      */
     public function post()
     {
-        return $this->belongsTo(Post::class);
+        return $this->belongsTo(Post::class, 'post_id');
     }
 }

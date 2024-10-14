@@ -15,7 +15,7 @@ class Post extends Model
      * making the uuid as the primaryKey
      * @var string
      */
-    protected $primaryKey = 'uuid';
+    // protected $primaryKey = 'uuid';
 
     /**
      * To retain the value from the url
@@ -55,8 +55,11 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * comments of a post
+     */
     public function comments()
     {
-        // return $this->hasMany();
+        return $this->hasMany(Comment::class, 'post_id');
     }
 }

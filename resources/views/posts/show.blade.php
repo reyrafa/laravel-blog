@@ -58,19 +58,39 @@
 
 
                     </div>
-                    <div class="mt-3">
-                        <form action="" method="post">
-                            @csrf
-                            <div>
-                                <input type="text" name="comment" id="" class="rounded "
-                                    placeholder="Send Comment..">
-                                <button type="submit"
-                                    class="bg-green-400 p-2 rounded shadow text-white">Comment</button>
-                            </div>
-
-                        </form>
-                    </div>
                 @endif
+
+                <div class="mt-5">
+                    <div class="font-bold">Comments</div>
+                    <div class="mt-3">
+                        @foreach ($post->comments as $comments)
+                            <div class="mb-3">
+                                <div>{{ $comments->user->name }}</div>
+                                <div>{{ $comments->content }}</div>
+                            </div>
+                        @endforeach
+
+                    </div>
+                    @if ($post->user->id !== auth()->user()->id)
+                        <div class="mt-3">
+                            <form action="{{ route('comments.store', $post->uuid) }}" method="post">
+                                @csrf
+                                <div>
+                                    <input type="text" name="content" id="" class="rounded mb-3"
+                                        placeholder="Send Comment..">
+
+                                    <button type="submit"
+                                        class="bg-green-400 p-2 rounded shadow text-white mt-3">Comment</button>
+                                    @if ($errors->any())
+                                        <x-input-error :messages="$errors->all()" />
+                                    @endif
+                                </div>
+
+                            </form>
+                        </div>
+                    @endif
+                </div>
+
             </div>
 
         </div>

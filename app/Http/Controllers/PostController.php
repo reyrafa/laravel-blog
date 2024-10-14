@@ -49,10 +49,9 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show($uuid)
     {
-
-        // $post = Post::withTrashed()->where('uuid', $id)->first();
+        $post = Post::where('uuid', $uuid)->first();
 
         return view("posts.show", ['post' => $post]);
     }
