@@ -56,6 +56,19 @@
                             <button type="submit" class="bg-red-600 text-white py-1 px-3 rounded">Delete</button>
                         </form>
 
+
+                    </div>
+                    <div class="mt-3">
+                        <form action="" method="post">
+                            @csrf
+                            <div>
+                                <input type="text" name="comment" id="" class="rounded "
+                                    placeholder="Send Comment..">
+                                <button type="submit"
+                                    class="bg-green-400 p-2 rounded shadow text-white">Comment</button>
+                            </div>
+
+                        </form>
                     </div>
                 @endif
             </div>
